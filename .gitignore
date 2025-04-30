@@ -1,0 +1,44 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-specific
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+
+# FastAPI / general Python
+.env
+*.env
+*.ini
+*.cfg
+.env.*
+venv/
+ENV/
+env/
+.venv/
+*.egg
+*.egg-info/
+dist/
+build/
+
+# VSCode, JetBrains, etc.
+.vscode/
+.idea/
+*.swp
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Migrations (optional: remove if you track them)
+**/migrations/*.py
+**/migrations/__pycache__/
+
+# pip freeze and dependency files
+pip-log.txt
