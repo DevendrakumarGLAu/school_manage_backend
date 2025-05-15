@@ -14,27 +14,19 @@ from pydantic import BaseModel
 from django.contrib.auth import authenticate
 from school.models import User
 from .jwt_auth import create_access_token
+from fastapi.middleware.cors import CORSMiddleware
 from app.routers.common_router import common_router 
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:4200"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(common_router)
-# class LoginRequest(BaseModel):
-#     username: str
-#     password: str
 
-# @app.post("/login")
-# def login_user(data: LoginRequest):
-#     user = authenticate(username=data.username, password=data.password)
-#     if not user:
-#         raise HTTPException(status_code=401, detail="Invalid credentials")
-
-#     token = create_access_token({"sub": user.username, "role": user.role})
-#     return {
-#         "access_token": token,
-#         "role": user.role,
-#         "username": user.username
-#     }
-
-# @app.get("/")
-# def read_root():
-#     return {"message": "Welcome to the School Management API"}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)

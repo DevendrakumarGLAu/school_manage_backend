@@ -8,18 +8,29 @@ from school.models import User
 router = APIRouter()
 
 class LoginRequest(BaseModel):
-    username: str
+    email: str
     password: str
+
+DUMMY_USERS = {
+    "admin@example.com": {"password": "admin123", "role": "admin"},
+    "teacher@example.com": {"password": "teacher123", "role": "teacher"},
+    "student@example.com": {"password": "student123", "role": "student"}
+}
 
 @router.post("/login")
 def login_user(data: LoginRequest):
-    user = authenticate(username=data.username, password=data.password)
-    if not user:
-        raise HTTPException(status_code=401, detail="Invalid credentials")
+    user = DUMMY_USERS.get(data.email)
+    if user and user["password"] == data.password:
+        # token = f"dummy-token-for-{data.email}"
+    # user = authenticate(username=data.email, password=data.password)
+    # if not user:
+    #     raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    token = create_access_token({"sub": user.username, "role": user.role})
-    return {
-        "access_token": token,
-        "role": user.role,
-        "username": user.username
-    }
+        token = create_access_token({"sub": data.email, "role": user["role"]})
+        return {
+                "status": "success",
+                "email": data.email,
+                "role": user["role"],
+                "token": token
+            }
+    raise HTTPException(status_code=401, detail="Invalid credentials")
