@@ -19,4 +19,4 @@ class User(AbstractUser):
         return self.username
 
     class Meta:
-        db_table = 'user'
+        db_table = 'auth_users'

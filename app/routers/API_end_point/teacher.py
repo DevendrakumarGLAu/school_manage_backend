@@ -1,16 +1,16 @@
 from fastapi import APIRouter, HTTPException
-from app.schemas.schema import StudentCreateRequest
+from app.schemas.schema import  TeacherCreateRequest
 from fastapi import APIRouter, HTTPException, status
-from app.controllers.students import StudentController
+from app.controllers.teacher_controller import TeacherController
 # G:\project\school_management\school_manage_backend\app\controllers\students.py
-student_router = APIRouter()
+teacher_router = APIRouter()
 
-@student_router.post("/register",
+@teacher_router.post("/register",
 status_code=status.HTTP_201_CREATED
 )
-def register_student(student_data: StudentCreateRequest):
+def register_teacher(teacher_data: TeacherCreateRequest):
     try:
-        response = StudentController.register_student(student_data)
+        response = TeacherController.register_teacher(teacher_data)
         return response
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
