@@ -1,4 +1,4 @@
-
+# uvicorn app.main:app --reload
 PyJWT>=2.0,<3.0
 uvicorn>=0.15,<0.16
 fastapi==0.115.12
@@ -8,5 +8,5 @@ python-jose==3.4.0
 pydantic-core==2.27.2
 django==4.2.20
 email-validator==2.2.0
-
+djangorestframework==3.16.0
 

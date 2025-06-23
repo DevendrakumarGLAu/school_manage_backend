@@ -3,14 +3,19 @@ from django.contrib.auth.hashers import make_password
 from school.models.user import User
 from school.models.student import Student
 from app.schemas.schema import StudentCreateRequest,StudentUpdateRequest
-
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.exceptions import NotFound
 class StudentController:
+    def getStudentData():
+        return "hello"
     def register_student(student_data: StudentCreateRequest):
         try:
+            username = student_data.email
+            password = student_data.father_contact
             user = User.objects.create(
-                username=student_data.username,
+                username= username,
                 email=student_data.email,
-                password=make_password(student_data.password),
+                password=make_password(password),
                 first_name=student_data.first_name,
                 last_name=student_data.last_name,
                 phone=student_data.phone,
@@ -27,7 +32,7 @@ class StudentController:
                 mother_name=student_data.mother_name,
                 mother_contact=student_data.mother_contact,
                 father_name=student_data.mother_name,
-                father_contact=student_data.mother_contact,
+                father_contact=student_data.father_contact,
                 admission_date=student_data.admission_date,
                 created_by=user,
                 updated_by=user
@@ -38,7 +43,13 @@ class StudentController:
                 "student_id":student.id
             }
         except Exception as e:
-            raise Exception(f" error in registering students:{str(e)}")
+            # print(f" error in registering students:{str(e)}")
+            # raise Exception(f" error in registering students:{str(e)}")
+            if 'user_username_key' in str(e):
+                return {
+                    "status": "failed",
+                    "message": "A user with this email/username already exists."
+                }
 
     def update_student(student_data: StudentUpdateRequest):
         try:

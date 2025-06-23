@@ -5,6 +5,11 @@ from app.controllers.students import StudentController
 # G:\project\school_management\school_manage_backend\app\controllers\students.py
 student_router = APIRouter()
 
+@student_router.get("/getStudentData", status_code=status.HTTP_201_CREATED)
+def getStudentData():
+    response = StudentController.getStudentData()
+    return response
+
 @student_router.post("/register",
 status_code=status.HTTP_201_CREATED
 )

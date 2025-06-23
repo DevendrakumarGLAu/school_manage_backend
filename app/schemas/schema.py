@@ -3,9 +3,8 @@ from pydantic import BaseModel, EmailStr
 from datetime import date
 
 class StudentCreateRequest(BaseModel):
-    username: str
     email: EmailStr
-    password: str
+    # password: str
     first_name: str
     last_name: str
     phone: Optional[str] = None
